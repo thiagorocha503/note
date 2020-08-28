@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/style.css" />
+        <title>Note App</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark bg-success fixed-top">
+            <a class="navbar-brand" onclick="goHome();" style="cursor: pointer;">Note App</a>
+        </nav>
+        <wrapper class="d-flex flex-column pt-5">
+            <main class="flex-fill pt-3">
+                <div class="container">
+                    <!-- Tab list-->
+                    <div id="tab-list" class="tabcontent ">
+                        <div class="row p-2">
+                            <div class="col text-right">
+                                <button class="btn btn-success" onclick="onNew();">
+                                    Add Note
+                                </button>
+                            </div>
+                        </div>
+                        <div id="cards" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                            <!--Col
+                            <div class="col mb-2">
+                                
+                                <div class="card bg-light">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Note 01</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Cras ornare volutpat iaculis. Nullam ultricies dui quis
+                                            tincidunt luctus. Aenean at lobortis eros. Aliquam
+                                            eleifend congue mauris, a semper est sagittis non. Donec
+                                            justo urna, dapibus pretium augue sed, venenatis
+                                            ullamcorper lacus.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div><!--/ End Tab list-->
+                    <div id="tab-edit" class="tabcontent d-none">
+                        <div id="form">
+                            <div class="form-group">
+                                <label for="txt-title">Title</label>
+                                <input id="txt-title" placeholder="Title" type="text" class="form-control">
+                                <div class="invalid-feedback" id="title-label-error">Fill out this field</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txt-description">Descrition</label>
+                                <textarea id="txt-description" placeholder="Description" class="form-control textarea-new" style="height: 240px;"></textarea>
+                                <div id="description-label-error" class="invalid-feedback ">Fill out this field</div>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-secondary" onclick="goHome();">Back</button>
+                                <button class="btn btn-success ml-1" onclick="onSave();">Save</button>
+                            </div>
+                            <div id="success-alert" class="alert alert-success" aria-label="Close" role="alert">
+                                <span id="alert-sucess-text"></span>
+                                <button class="close" data-dismiss="alert">
+                                    <span arial-hidden="true">&times;</span>
+                                </button>
+                            </div>                
+                        </div>
+                    </div>
+                    <div id="tab-details" class="tabcontent d-none pt-3">
+                        <h1 id="note-title">Note 1</h1>
+                        <div style="min-height: 250px;">
+                            <pre id="note-description">Lorem ipsum dolor sit amet
+                            </prev>
+                        </div>                      
+                        <div class="text-right py-3">
+                            <button class="btn btn-secondary" onclick="goHome();">Back</button>
+                            <button class="btn btn-danger" onclick="onDelete();">Delete</button>
+                            <button class="btn btn-primary" onclick="onEdit();">Edit</button>
+                        </div>
+                    </div>       
+                </div>
+            </main>
+            <footer class="pt-2">
+                <p class="p-2 text-center text-light">
+                    Made with <span id="heard">❤️</span> by
+                    <a class="text-light" href="https://github.com/thiagorocha503">Thiago Rocha</a>
+                </p>
+            </footer>
+           
+            <!--modal remove -->
+            <div class="modal fade" id="modal-delete" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger">Remove</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" onclick="onDeleteteConfirm();">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </wrapper>
+        <script src="js/model.js"></script>
+        <script src="js/noteLocalStorage.js"></script>
+        <script src="js/note-app.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            $('.alert').hide();
+            renderCards();
+        </script>
+    </body>
+
+</html>
