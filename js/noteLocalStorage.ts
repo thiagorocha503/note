@@ -14,7 +14,7 @@ class NoteLocalStorage{
         if(notesJSON==null || count == null){
             localStorage.setItem("notes","[]");
             localStorage.setItem("count","1");
-            return;
+            this.add(newNote);
         }
         let notes: Array<any> = JSON.parse(notesJSON);
         let id: number = JSON.parse(count);
