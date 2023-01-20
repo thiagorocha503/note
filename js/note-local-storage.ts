@@ -1,36 +1,39 @@
-"use strict";
 // Persistence
-var NoteLocalStorage = /** @class */ (function () {
-    function NoteLocalStorage() {
+class NoteLocalStorage {
+    constructor() {
         if (localStorage.getItem("notes") == null) {
             localStorage.setItem("notes", "[]");
             localStorage.setItem("count", "1");
         }
     }
-    NoteLocalStorage.prototype.add = function (newNote) {
-        var count = localStorage.getItem("count");
-        var notesJSON = localStorage.getItem("notes");
+
+    public add(newNote: Note): number {
+        let count = localStorage.getItem("count");
+        let notesJSON = localStorage.getItem("notes");
         if (notesJSON == null || count == null) {
             localStorage.setItem("notes", "[]");
             localStorage.setItem("count", "1");
-            return;
+            this.add(newNote);
         }
-        var notes = JSON.parse(notesJSON);
-        var id = JSON.parse(count);
+        let notes: Array<any> = JSON.parse(notesJSON as string);
+        let id: number = JSON.parse(count as string);
         newNote.setId(id);
         notes.push(newNote);
+
         localStorage.setItem("notes", JSON.stringify(notes));
         localStorage.setItem("count", JSON.stringify(id + 1));
-    };
-    NoteLocalStorage.prototype.deleteById = function (id) {
-        var notesJSON = localStorage.getItem("notes");
+        return id;
+    }
+
+    public deleteById(id: number): void {
+        let notesJSON = localStorage.getItem("notes");
         if (notesJSON == null) {
             console.log("> Nota não Removida");
             return;
         }
-        var notes = JSON.parse(notesJSON);
-        for (var i = 0; i < notes.length; i++) {
-            var oneNote = notes[i];
+        let notes: Array<any> = JSON.parse(notesJSON);
+        for (let i = 0; i < notes.length; i++) {
+            let oneNote = notes[i];
             if (oneNote.id == id) {
                 notes.splice(i, 1);
                 localStorage.setItem("notes", JSON.stringify(notes));
@@ -38,41 +41,44 @@ var NoteLocalStorage = /** @class */ (function () {
                 break;
             }
         }
-    };
-    NoteLocalStorage.prototype.fetchAll = function () {
-        var notesJSON = localStorage.getItem("notes");
+    }
+    public fetchAll(): Array<Note> {
+        let notesJSON = localStorage.getItem("notes");
         if (notesJSON == null) {
             return [];
         }
         return JSON.parse(notesJSON);
-    };
-    NoteLocalStorage.prototype.clear = function () {
+    }
+
+    public clear(): void {
         localStorage.clear();
-    };
-    NoteLocalStorage.prototype.update = function (note) {
-        var notesJSON = localStorage.getItem("notes");
+    }
+
+    public update(note: Note){
+        let notesJSON = localStorage.getItem("notes");
         if (notesJSON == null) {
             localStorage.setItem("notes", "[]");
             localStorage.setItem("count", "1");
-            return;
+            return 0;
         }
-        var notes = JSON.parse(notesJSON);
-        for (var i = 0; i < notes.length; i++) {
+        let notes: Array<any> = JSON.parse(notesJSON);
+        for (let i = 0; i < notes.length; i++) {
             if (notes[i].id == note.id) {
                 notes[i] = note;
                 break;
             }
         }
         localStorage.setItem("notes", JSON.stringify(notes));
-    };
-    NoteLocalStorage.prototype.getNoteByID = function (id) {
-        var notes = this.fetchAll();
-        for (var i = 0; i < notes.length; i++) {
+        
+    }
+
+    public getNoteByID(id: number): Note | null {
+        let notes = this.fetchAll();
+        for (let i = 0; i < notes.length; i++) {
             if (notes[i].id == id) {
                 return notes[i];
             }
         }
         return null;
-    };
-    return NoteLocalStorage;
-}());
+    }
+}

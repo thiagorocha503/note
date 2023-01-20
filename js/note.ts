@@ -1,20 +1,19 @@
 // Model
-class Note{
+class Note {
     id: number;
     title: string;
     description: string;
 
-    constructor(id:number=0, title:string="", desccription=""){
+    constructor(id: number = 0, title: string = "", desccription = "") {
         this.id = id;
         this.title = title;
         this.description = desccription;
     }
 
-    public getId():number{
+    public getId(): number {
         return this.id;
     }
-    public setId(id:number):void{
+    public setId(id: number): void {
         this.id = id;
     }
-    
 }
