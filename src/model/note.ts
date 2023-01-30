@@ -1,13 +1,13 @@
 // Model
-class Note {
+export default class Note {
     id: number;
     title: string;
-    description: string;
+    text: string;
 
     constructor(id: number = 0, title: string = "", desccription = "") {
         this.id = id;
         this.title = title;
-        this.description = desccription;
+        this.text = desccription;
     }
 
     public getId(): number {
@@ -15,5 +15,9 @@ class Note {
     }
     public setId(id: number): void {
         this.id = id;
+    }
+
+    public copy(): Note {
+        return new Note(this.id, this.title, this.text);
     }
 }
